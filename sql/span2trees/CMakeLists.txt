@@ -1,19 +1,10 @@
 
 SET(LOCAL_FILES
-    _prim.sql
-    _kruskal.sql
-    #_randomSpanTree.sql
-    
-    prim.sql
-    primDFS.sql
-    primBFS.sql
-    primDD.sql
-
-    kruskal.sql
-    kruskalDFS.sql
-    kruskalBFS.sql
-    kruskalDD.sql
-    #randomSpanTree.sql
+    _foo.sql
+    foo.sql
+    #fooDFS.sql
+    #fooBFS.sql
+    #fooDD.sql
     )
 
 # Do not modify below this line

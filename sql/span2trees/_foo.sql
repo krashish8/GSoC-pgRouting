@@ -1,13 +1,13 @@
 /*PGR-GNU*****************************************************************
-File: kruskal.sql
+File: _foo.sql
 
 Generated with Template by:
 Copyright (c) 2016 pgRouting developers
 Mail: project@pgrouting.org
 
 Function's developer:
-Copyright (c) 2018 Aditya Pratap Singh
-Mail: adityapratap.singh28@gmail.com
+Copyright (c) 2020 Ashish Kumar
+Mail: ashishkr23438@gmail.com
 
 ------
 
@@ -27,33 +27,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
+----------
+----------
+-- mst
+----------
+----------
 
----------------
--- pgr_kruskal
----------------
+
+----------------
+-- _pgr_foo
+----------------
 
 
-CREATE OR REPLACE FUNCTION pgr_kruskal(
-    TEXT, -- edges-sql (required)
+CREATE OR REPLACE FUNCTION _pgr_foo(
+    TEXT,             -- Edge sql
+    ANYARRAY,         -- tree root for traversal
+    order_by TEXT,
+    max_depth BIGINT,
+    distance FLOAT,
 
+    OUT seq BIGINT,
+    OUT depth BIGINT,
+    OUT start_vid BIGINT,
+    OUT node BIGINT,
     OUT edge BIGINT,
-    OUT cost FLOAT)
+    OUT cost FLOAT,
+    OUT agg_cost FLOAT)
 RETURNS SETOF RECORD AS
-$BODY$
-    SELECT edge, cost
-    FROM _pgr_kruskal(_pgr_get_statement($1), ARRAY[0]::BIGINT[], '', -1, -1);
-$BODY$
-LANGUAGE SQL VOLATILE STRICT;
+'MODULE_PATHNAME'
+LANGUAGE C VOLATILE STRICT;
 
 
 -- COMMENTS
 
 
-COMMENT ON FUNCTION pgr_kruskal(TEXT)
-IS 'pgr_kruskal
-- Undirected graph
-- Parameters:
-	- Edges SQL with columns: id, source, target, cost [,reverse_cost]
-- Documentation:
-	- ${PGROUTING_DOC_LINK}/pgr_kruskal.html
-';
+COMMENT ON FUNCTION _pgr_foo(TEXT, ANYARRAY, TEXT, BIGINT, FLOAT)
+IS 'pgRouting internal function';
+

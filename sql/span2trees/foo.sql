@@ -1,8 +1,13 @@
 /*PGR-GNU*****************************************************************
-File: details.hpp
+File: foo.sql
 
-Copyright (c) 2018 Vicky Vergara
+Generated with Template by:
+Copyright (c) 2016 pgRouting developers
+Mail: project@pgrouting.org
 
+Function's developer:
+Copyright (c) 2020 Ashish Kumar
+Mail: ashishkr23438@gmail.com
 
 ------
 
@@ -22,35 +27,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "spanningTree/details.hpp"
-#include <vector>
-#include <algorithm>
 
-namespace pgrouting {
-namespace details {
+------------
+-- pgr_foo
+------------
 
-std::vector<int64_t>
-clean_vids(std::vector<int64_t> vids) {
-    std::sort(vids.begin(), vids.end());
-    vids.erase(
-            std::unique(vids.begin(), vids.end()),
-            vids.end());
-    vids.erase(
-            std::remove(vids.begin(), vids.end(), 0),
-            vids.end());
-    return vids;
-}
 
-std::vector<pgr_mst_rt>
-get_no_edge_graph_result(
-        std::vector<int64_t> vids) {
-    std::vector<pgr_mst_rt> results;
-    if (vids.empty()) return results;
-    for (auto const root : clean_vids(vids)) {
-        results.push_back({root, 0, root, -1, 0.0, 0.0});
-    }
-    return results;
-}
+CREATE OR REPLACE FUNCTION pgr_foo(
+    TEXT,  -- edges_sql (required)
 
-}  // namespace details
-}  // namespace pgrouting
+    OUT edge BIGINT,
+    OUT cost FLOAT)
+RETURNS SETOF RECORD AS
+$BODY$
+    SELECT edge, cost
+    FROM _pgr_foo(_pgr_get_statement($1), ARRAY[0]::BIGINT[], '', -1, -1);
+$BODY$
+LANGUAGE sql VOLATILE STRICT;
+
+
+-- COMMENT
+
+
+COMMENT ON FUNCTION pgr_foo(TEXT)
+IS 'pgr_foo
+- Undirected graph
+- Parameters:
+    - Edges SQL with columns: id, source, target, cost [,reverse_cost]
+- Documentation:
+    - ${PGROUTING_DOC_LINK}/pgr_foo.html
+';
