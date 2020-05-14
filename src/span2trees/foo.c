@@ -83,7 +83,6 @@ process(
 
 
     clock_t start_t = clock();
-#if 0
     do_pgr_foo(
             edges, total_edges,
             rootsArr, size_rootsArr,
@@ -98,7 +97,6 @@ process(
             &log_msg,
             &notice_msg,
             &err_msg);
-#endif
 
 
     time_msg(fn_name, start_t, clock());
