@@ -34,14 +34,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
 CREATE OR REPLACE FUNCTION pgr_foo(
-    TEXT,  -- edges_sql (required)
+    TEXT,  -- first graph (required)
+    TEXT,  -- second graph (required)
 
     OUT edge BIGINT,
     OUT cost FLOAT)
 RETURNS SETOF RECORD AS
 $BODY$
     SELECT edge, cost
-    FROM _pgr_foo(_pgr_get_statement($1), ARRAY[0]::BIGINT[], '', -1, -1);
+    FROM _pgr_foo(_pgr_get_statement($1), _pgr_get_statement($2), ARRAY[0]::BIGINT[], '', -1, -1);
 $BODY$
 LANGUAGE sql VOLATILE STRICT;
 
@@ -49,11 +50,12 @@ LANGUAGE sql VOLATILE STRICT;
 -- COMMENT
 
 
-COMMENT ON FUNCTION pgr_foo(TEXT)
+COMMENT ON FUNCTION pgr_foo(TEXT, TEXT)
 IS 'pgr_foo
 - Undirected graph
 - Parameters:
-    - Edges SQL with columns: id, source, target, cost [,reverse_cost]
+    - First Edges SQL with columns: id, source, target, cost [,reverse_cost]
+    - Second Edges SQL with columns: id, source, target, cost [,reverse_cost]
 - Documentation:
     - ${PGROUTING_DOC_LINK}/pgr_foo.html
 ';

@@ -49,7 +49,8 @@ PG_FUNCTION_INFO_V1(_pgr_foo);
 static
 void
 process(
-        char* edges_sql,
+        char* graph1,
+        char* graph2,
         ArrayType *roots,
         char * fn_suffix,
         int64_t max_depth,
@@ -78,7 +79,7 @@ process(
     pgr_edge_t *edges = NULL;
     size_t total_edges = 0;
 
-    pgr_get_edges(edges_sql, &edges, &total_edges);
+    pgr_get_edges(graph1, &edges, &total_edges);
 
 
     clock_t start_t = clock();
@@ -132,10 +133,11 @@ PGDLLEXPORT Datum _pgr_foo(PG_FUNCTION_ARGS) {
         /* Edge sql, tree roots, fn_suffix, max_depth, distance */
         process(
                 text_to_cstring(PG_GETARG_TEXT_P(0)),
-                PG_GETARG_ARRAYTYPE_P(1),
-                text_to_cstring(PG_GETARG_TEXT_P(2)),
-                PG_GETARG_INT64(3),
-                PG_GETARG_FLOAT8(4),
+                text_to_cstring(PG_GETARG_TEXT_P(1)),
+                PG_GETARG_ARRAYTYPE_P(2),
+                text_to_cstring(PG_GETARG_TEXT_P(3)),
+                PG_GETARG_INT64(4),
+                PG_GETARG_FLOAT8(5),
                 &result_tuples,
                 &result_count);
 
