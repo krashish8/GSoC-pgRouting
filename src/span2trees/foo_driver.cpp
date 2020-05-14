@@ -1,13 +1,13 @@
 /*PGR-GNU*****************************************************************
-File: prim_driver.cpp
+File: foo_driver.cpp
 
 Generated with Template by:
-Copyright (c) 2015 pgRouting developers
+Copyright (c) 2020 pgRouting developers
 Mail: project@pgrouting.org
 
 Function's developer:
-Copyright (c) 2018 Aditya Pratap Singh
-Mail: adityapratap.singh28@gmail.com
+Copyright (c) 2020 Ashish Kumar
+Mail: ashishkr23438@gmail.com
 ------
 
 This program is free software; you can redistribute it and/or modify
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
-#include "drivers/spanningTree/prim_driver.h"
+#include "drivers/span2trees/foo_driver.h"
 
 #include <sstream>
 #include <deque>
@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
 void
-do_pgr_prim(
+do_pgr_foo(
         pgr_edge_t  *data_edges,
         size_t total_edges,
 
@@ -79,15 +79,15 @@ do_pgr_prim(
         } else {
             pgrouting::UndirectedGraph undigraph(UNDIRECTED);
             undigraph.insert_min_edges_no_parallel(data_edges, total_edges);
-            pgrouting::functions::Pgr_prim<pgrouting::UndirectedGraph> prim;
+            pgrouting::functions::Pgr_prim<pgrouting::UndirectedGraph> foo;
             if (suffix == "") {
-                results = prim.prim(undigraph);
+                results = foo.prim(undigraph);
             } else if (suffix == "BFS") {
-                results = prim.primBFS(undigraph, roots, max_depth);
+                results = foo.primBFS(undigraph, roots, max_depth);
             } else if (suffix == "DFS") {
-                results = prim.primDFS(undigraph, roots, max_depth);
+                results = foo.primDFS(undigraph, roots, max_depth);
             } else if (suffix == "DD") {
-                results = prim.primDD(undigraph, roots, distance);
+                results = foo.primDD(undigraph, roots, distance);
             } else {
                 err << "Unknown Prim function";
                 *err_msg = pgr_msg(err.str().c_str());

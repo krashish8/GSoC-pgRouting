@@ -1,13 +1,13 @@
 /*PGR-GNU*****************************************************************
-File: prim.c
+File: foo.c
 Generated with Template by:
 
-Copyright (c) 2015 pgRouting developers
+Copyright (c) 2020 pgRouting developers
 Mail: project@pgrouting.org
 
 Function's developer:
-Copyright (c) 2018 Aditya Pratap Singh
-Mail: adityapratap.singh28@gmail.com
+Copyright (c) 2020 Ashish Kumar
+Mail: ashishkr23438@gmail.com
 ------
 
 This program is free software; you can redistribute it and/or modify
@@ -38,10 +38,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "c_types/pgr_mst_rt.h"
 
 #include "drivers/spanningTree/mst_common.h"
-#include "drivers/spanningTree/prim_driver.h"
+#if 0
+#include "drivers/spanningTree/foo_driver.h"
+#endif
 
-PGDLLEXPORT Datum _pgr_prim(PG_FUNCTION_ARGS);
-PG_FUNCTION_INFO_V1(_pgr_prim);
+PGDLLEXPORT Datum _pgr_foo(PG_FUNCTION_ARGS);
+PG_FUNCTION_INFO_V1(_pgr_foo);
 
 
 static
@@ -80,7 +82,8 @@ process(
 
 
     clock_t start_t = clock();
-    do_pgr_prim(
+#if 0
+    do_pgr_foo(
             edges, total_edges,
             rootsArr, size_rootsArr,
 
@@ -94,6 +97,7 @@ process(
             &log_msg,
             &notice_msg,
             &err_msg);
+#endif
 
 
     time_msg(fn_name, start_t, clock());
@@ -113,7 +117,7 @@ process(
 /*                                                                            */
 /******************************************************************************/
 
-PGDLLEXPORT Datum _pgr_prim(PG_FUNCTION_ARGS) {
+PGDLLEXPORT Datum _pgr_foo(PG_FUNCTION_ARGS) {
     FuncCallContext     *funcctx;
     TupleDesc           tuple_desc;
 
