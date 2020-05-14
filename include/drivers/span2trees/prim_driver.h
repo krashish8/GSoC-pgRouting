@@ -1,13 +1,13 @@
 /*PGR-GNU*****************************************************************
-File: foo.sql
+File: prim_driver.h
 
 Generated with Template by:
-Copyright (c) 2020 pgRouting developers
+Copyright (c) 2015 pgRouting developers
 Mail: project@pgrouting.org
 
 Function's developer:
-Copyright (c) 2020 Ashish Kumar
-Mail: ashishkr23438@gmail.com
+Copyright (c) 2018 Aditya Pratap Singh
+Mail: adityapratap.singh28@gmail.com
 
 ------
 
@@ -27,33 +27,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
+#ifndef INCLUDE_DRIVERS_SPANNINGTREE_PRIM_DRIVER_H_
+#define INCLUDE_DRIVERS_SPANNINGTREE_PRIM_DRIVER_H_
+#pragma once
 
-------------
--- pgr_foo
-------------
+/* for size-t */
+#ifdef __cplusplus
+#   include <cstddef>
+#else
+#   include <stddef.h>
+#endif
 
+#include "c_types/pgr_edge_t.h"
+#include "c_types/pgr_mst_rt.h"
 
-CREATE OR REPLACE FUNCTION pgr_foo(
-    TEXT,  -- edges_sql (required)
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-    OUT edge BIGINT,
-    OUT cost FLOAT)
-RETURNS SETOF RECORD AS
-$BODY$
-    SELECT edge, cost
-    FROM _pgr_foo(_pgr_get_statement($1), ARRAY[0]::BIGINT[], '', -1, -1);
-$BODY$
-LANGUAGE sql VOLATILE STRICT;
+void do_pgr_prim(
+        pgr_edge_t  *data_edges,
+        size_t total_edges,
 
+        int64_t *rootsArr,
+        size_t size_rootsArr,
 
--- COMMENT
+        char* fn_suffix,
 
+        int64_t max_depth,
+        double distance,
 
-COMMENT ON FUNCTION pgr_foo(TEXT)
-IS 'pgr_foo
-- Undirected graph
-- Parameters:
-    - Edges SQL with columns: id, source, target, cost [,reverse_cost]
-- Documentation:
-    - ${PGROUTING_DOC_LINK}/pgr_foo.html
-';
+        pgr_mst_rt **return_tuples,
+        size_t *return_count,
+
+        char ** log_msg,
+        char ** notice_msg,
+        char ** err_msg);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif  // INCLUDE_DRIVERS_SPANNINGTREE_PRIM_DRIVER_H_

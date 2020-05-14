@@ -1,13 +1,8 @@
 /*PGR-GNU*****************************************************************
-File: foo.sql
+File: mst_common.h
 
-Generated with Template by:
-Copyright (c) 2020 pgRouting developers
-Mail: project@pgrouting.org
-
-Function's developer:
-Copyright (c) 2020 Ashish Kumar
-Mail: ashishkr23438@gmail.com
+Copyright (c) 2018 Vicky Vergara
+Mail: vicky at georepublic dot de
 
 ------
 
@@ -27,33 +22,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  ********************************************************************PGR-GNU*/
 
+#ifndef INCLUDE_DRIVERS_SPANNINGTREE_MST_COMMON_H_
+#define INCLUDE_DRIVERS_SPANNINGTREE_MST_COMMON_H_
+#pragma once
 
-------------
--- pgr_foo
-------------
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+/**
+ * @brief defines ordering
+ *
+ * @param[in] fn_suffix
+ * @param[in] err_msg
+ *
+ * @return
+ * 0 = no matter
+ * 1 = DFS
+ * 2 = BFS
+ */
+int
+get_order(char * fn_suffix, char ** err_msg);
 
-CREATE OR REPLACE FUNCTION pgr_foo(
-    TEXT,  -- edges_sql (required)
+char *
+get_name(int fn_id, char * fn_suffix, char ** err_msg);
 
-    OUT edge BIGINT,
-    OUT cost FLOAT)
-RETURNS SETOF RECORD AS
-$BODY$
-    SELECT edge, cost
-    FROM _pgr_foo(_pgr_get_statement($1), ARRAY[0]::BIGINT[], '', -1, -1);
-$BODY$
-LANGUAGE sql VOLATILE STRICT;
+#ifdef __cplusplus
+}
+#endif
 
-
--- COMMENT
-
-
-COMMENT ON FUNCTION pgr_foo(TEXT)
-IS 'pgr_foo
-- Undirected graph
-- Parameters:
-    - Edges SQL with columns: id, source, target, cost [,reverse_cost]
-- Documentation:
-    - ${PGROUTING_DOC_LINK}/pgr_foo.html
-';
+#endif  // INCLUDE_DRIVERS_SPANNINGTREE_MST_COMMON_H_
