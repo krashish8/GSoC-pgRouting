@@ -129,11 +129,12 @@ jobs:
             - postgresql-12-pgtap
             - libtap-parser-sourcehandler-pgtap-perl
             - libboost-graph-dev
+            - python-sphinx
       env:
         PGPORT: "5433"
         PGVERSION: 12
         POSTGRESQL_VERSION: 12
-        BUILD_TYPE: "Debug"
+        BUILD_TYPE: "Release"
         DOCUMENTATION: "ON"
 
 services:
