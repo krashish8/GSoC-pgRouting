@@ -168,7 +168,7 @@ BEGIN
         ),
 
         agg_in AS (
-          SELECT array_agg(in_edge) AS in_edges, ST_x(geom) AS x, ST_Y(geom) AS y, geom
+          SELECT array_agg(in_edge ORDER BY in_edge) AS in_edges, ST_x(geom) AS x, ST_Y(geom) AS y, geom
           FROM the_in
           GROUP BY geom
         ),
@@ -179,7 +179,7 @@ BEGIN
           FULL OUTER JOIN agg_in USING (x, y)
         )
 
-        SELECT row_number() over() AS id, in_edges, out_edges, ST_X(geom), ST_Y(geom), geom
+        SELECT row_number() over(ORDER BY geom) AS id, in_edges, out_edges, ST_X(geom), ST_Y(geom), geom
         FROM the_points$q$;
 
     ELSIF has_geom AND NOT has_id THEN
