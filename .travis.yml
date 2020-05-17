@@ -25,12 +25,8 @@ jobs:
         postgresql: "9.5"
         apt:
           packages:
-            - postgresql-9.5
             - postgresql-9.5-postgis-2.4
-            - postgresql-client-9.5
             - postgresql-server-dev-9.5
-            - postgresql-client-common
-            - postgresql-common
             - postgresql-9.5-pgtap
             - libtap-parser-sourcehandler-pgtap-perl
             - libboost-graph-dev
