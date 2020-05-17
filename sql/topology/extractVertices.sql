@@ -157,7 +157,7 @@ BEGIN
         ),
 
         agg_out AS (
-          SELECT array_agg(out_edge) AS out_edges, ST_x(geom) AS x, ST_Y(geom) AS y, geom
+          SELECT array_agg(out_edge ORDER BY out_edge) AS out_edges, ST_x(geom) AS x, ST_Y(geom) AS y, geom
           FROM the_out
           GROUP BY geom
         ),
@@ -231,7 +231,7 @@ BEGIN
         ),
 
         agg_out AS (
-          SELECT array_agg(out_edge) AS out_edges, ST_x(geom) AS x, ST_Y(geom) AS y, geom
+          SELECT array_agg(out_edge ORDER BY out_edge) AS out_edges, ST_x(geom) AS x, ST_Y(geom) AS y, geom
           FROM the_out
           GROUP BY geom
         ),
@@ -242,7 +242,7 @@ BEGIN
         ),
 
         agg_in AS (
-          SELECT array_agg(in_edge) AS in_edges, ST_x(geom) AS x, ST_Y(geom) AS y, geom
+          SELECT array_agg(in_edge ORDER BY in_edge) AS in_edges, ST_x(geom) AS x, ST_Y(geom) AS y, geom
           FROM the_in
           GROUP BY geom
         ),
