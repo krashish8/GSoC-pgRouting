@@ -144,6 +144,9 @@ before_install:
   - "if [ ! -z $PGVERSION ]; then sudo cp /etc/postgresql/{9.6,$PGVERSION}/main/pg_hba.conf; fi"
   - "if [ ! -z $PGVERSION ]; then sudo service postgresql restart $PGVERSION; fi"
 
+install:
+  - pip install sphinx==1.6.5
+
 
 before_script:
   # initialize databases
