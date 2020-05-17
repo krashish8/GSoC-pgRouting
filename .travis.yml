@@ -129,6 +129,7 @@ jobs:
             - postgresql-12-pgtap
             - libtap-parser-sourcehandler-pgtap-perl
             - libboost-graph-dev
+            - graphviz
       env:
         PGPORT: "5433"
         PGVERSION: 12
