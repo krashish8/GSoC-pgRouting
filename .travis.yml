@@ -144,7 +144,7 @@ before_install:
   - "if [ ! -z $PGVERSION ]; then sudo service postgresql restart $PGVERSION; fi"
 
 install:
-  - pip3 install sphinx==1.6.5
+  - pip install --user sphinx==1.6.5
 
 
 before_script:
