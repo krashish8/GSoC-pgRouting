@@ -213,7 +213,7 @@ BEGIN
           FULL OUTER JOIN the_in USING (x, y)
         )
 
-        SELECT row_number() over() AS id, NULL::BIGINT[], NULL::BIGINT[], x, y, geom
+        SELECT row_number() over(ORDER BY geom) AS id, NULL::BIGINT[], NULL::BIGINT[], x, y, geom
         FROM the_points$q$;
 
     ELSIF has_points AND has_id THEN
@@ -253,7 +253,7 @@ BEGIN
           FULL OUTER JOIN agg_in USING (x, y)
         )
 
-        SELECT row_number() over() AS id, in_edges, out_edges, ST_X(geom), ST_Y(geom), geom
+        SELECT row_number() over(ORDER BY geom) AS id, in_edges, out_edges, ST_X(geom), ST_Y(geom), geom
         FROM the_points$q$;
 
     ELSIF has_points AND NOT has_id THEN
@@ -282,7 +282,7 @@ BEGIN
           FULL OUTER JOIN the_in USING (x, y)
         )
 
-        SELECT row_number() over() AS id, NULL::BIGINT[], NULL::BIGINT[], x, y, geom
+        SELECT row_number() over(ORDER BY geom) AS id, NULL::BIGINT[], NULL::BIGINT[], x, y, geom
         FROM the_points$q$;
 
     ELSIF has_source AND has_id THEN
