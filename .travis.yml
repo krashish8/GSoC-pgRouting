@@ -74,6 +74,8 @@ jobs:
             - postgresql-server-dev-11
             - postgresql-11-pgtap
             - postgresql-client-11
+            - postgresql-client-common
+            - postgresql-common
             - libtap-parser-sourcehandler-pgtap-perl
             - libboost-graph-dev
       env:
@@ -90,6 +92,8 @@ jobs:
             - postgresql-server-dev-12
             - postgresql-12-pgtap
             - postgresql-client-12
+            - postgresql-client-common
+            - postgresql-common
             - libtap-parser-sourcehandler-pgtap-perl
             - libboost-graph-dev
       env:
@@ -106,6 +110,8 @@ jobs:
             - postgresql-server-dev-12
             - postgresql-12-pgtap
             - postgresql-client-12
+            - postgresql-client-common
+            - postgresql-common
             - libtap-parser-sourcehandler-pgtap-perl
             - libboost-graph-dev
             - graphviz
