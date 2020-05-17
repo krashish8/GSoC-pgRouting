@@ -16,7 +16,6 @@ compiler:
 
 python:
   - "3.5"
-  - "pypy3.5"
 
 
 jobs:
@@ -129,7 +128,6 @@ jobs:
             - postgresql-12-pgtap
             - libtap-parser-sourcehandler-pgtap-perl
             - libboost-graph-dev
-            - python-sphinx
       env:
         PGPORT: "5433"
         PGVERSION: 12
