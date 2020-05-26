@@ -2,6 +2,7 @@
 SET(LOCAL_FILES
     _dijkstra.sql
     dijkstra.sql
+    funnyDijkstra.sql
     dijkstraCost.sql
     dijkstraCostMatrix.sql
     _dijkstraVia.sql
