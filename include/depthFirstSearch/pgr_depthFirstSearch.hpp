@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <map>
 
 #include "cpp_common/pgr_base_graph.hpp"
+#include "cpp_common/interruption.h"
 
 
 /** @file pgr_depthFirstSearch.hpp
@@ -125,6 +126,9 @@ class Pgr_depthFirstSearch {
                  std::vector<E> &visited_order,
                  bool directed) {
          using dfs_visitor = visitors::Dfs_visitor_with_root<V, E>;
+
+         /* abort in case of an interruption occurs (e.g. the query is being cancelled) */
+         CHECK_FOR_INTERRUPTS();
 
          try {
              if (directed) {
