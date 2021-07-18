@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vrp_vroom - Experimental &#8212; vrpRouting Manual (0.2-dev)</title>
+    <title>vrp_vroomShipments - Experimental &#8212; vrpRouting Manual (0.2-dev)</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -17,8 +17,8 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="vrp_vroomJobs - Experimental" href="vrp_vroomJobs.html" />
-    <link rel="prev" title="VROOM - Category (Experimental)" href="vroom-category.html" />
+    <link rel="next" title="Release Notes" href="release_notes.html" />
+    <link rel="prev" title="vrp_vroomJobs - Experimental" href="vrp_vroomJobs.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -93,7 +93,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">vrp_vroom - Experimental</a><ul>
+<li><a class="reference internal" href="#">vrp_vroomShipments - Experimental</a><ul>
 <li><a class="reference internal" href="#description">Description</a></li>
 <li><a class="reference internal" href="#signature">Signature</a></li>
 <li><a class="reference internal" href="#parameters">Parameters</a></li>
@@ -121,11 +121,11 @@
               
                 
   <li>
-    <a href="vroom-category.html" title="Previous Chapter: VROOM - Category (Experimental)"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; VROOM - Categ...</span>
+    <a href="vrp_vroomJobs.html" title="Previous Chapter: vrp_vroomJobs - Experimental"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; vrp_vroomJobs...</span>
     </a>
   </li>
   <li>
-    <a href="vrp_vroomJobs.html" title="Next Chapter: vrp_vroomJobs - Experimental"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">vrp_vroomJobs... &raquo;</span>
+    <a href="release_notes.html" title="Next Chapter: Release Notes"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Release Notes &raquo;</span>
     </a>
   </li>
               
@@ -159,12 +159,12 @@
 <ul class="simple">
 <li><p><a class="reference external" href="https://vrp.pgrouting.org/">Documentation</a> → <a class="reference external" href="https://vrp.pgrouting.org/v0">vrpRouting v0</a></p></li>
 <li><p>Supported Versions
-<a class="reference external" href="https://vrp.pgrouting.org/latest/en/vrp_vroom.html">Latest</a>
-(<a class="reference external" href="https://vrp.pgrouting.org/v0/en/vrp_vroom.html">v0</a>)</p></li>
+<a class="reference external" href="https://vrp.pgrouting.org/latest/en/vrp_vroomShipments.html">Latest</a>
+(<a class="reference external" href="https://vrp.pgrouting.org/v0/en/vrp_vroomShipments.html">v0</a>)</p></li>
 </ul>
-<div class="section" id="vrp-vroom-experimental">
-<h1>vrp_vroom - Experimental<a class="headerlink" href="#vrp-vroom-experimental" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">vrp_vroom</span></code> - Vehicle Routing Problem with VROOM, involving both jobs and shipments.</p>
+<div class="section" id="vrp-vroomshipments-experimental">
+<h1>vrp_vroomShipments - Experimental<a class="headerlink" href="#vrp-vroomshipments-experimental" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">vrp_vroomShipments</span></code> - Vehicle Routing Problem with VROOM, involving only shipments.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Possible server crash</p>
@@ -204,26 +204,20 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>VROOM is an open-source optimization engine that aims at providing good solutions
 to various real-life vehicle routing problems (VRP) within a small computing time.
-This function can be used to get the solution to a problem involving both jobs and
-shipments.</p>
+This function can be used to get the solution to a problem involving only shipments.</p>
 </div>
 <div class="section" id="signature">
 <span id="index-0"></span><h2>Signature<a class="headerlink" href="#signature" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>vrp_vroom(Jobs SQL, Shipments SQL, Vehicles SQL, Matrix SQL)
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>vrp_vroom(Shipments SQL, Vehicles SQL, Matrix SQL)
 
 RETURNS SET OF
 (seq, vehicle_seq, vehicle_id, step_seq, step_type, task_id,
  arrival, travel_time, service_time, waiting_time, load)
 </pre></div>
 </div>
-<p><strong>Example</strong>: Problem involving 2 jobs and 1 shipment, using a single vehicle.</p>
+<p><strong>Example</strong>: Problem involving 1 shipment, using a single vehicle.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SELECT *
-FROM vrp_vroom(
-  $jobs$
-    SELECT * FROM (
-      VALUES (1414, 5), (1515, 10)
-    ) AS C(id, location_index)
-  $jobs$,
+FROM vrp_vroomShipments(
   $shipments$
     SELECT * FROM (
       VALUES (100, 1, 200, 30)
@@ -247,11 +241,9 @@ FROM vrp_vroom(
 -----+-------------+------------+----------+-----------+---------+---------+-------------+--------------+--------------+------
    1 |           1 |        500 |        1 |         1 |      -1 |       0 |           0 |            0 |            0 | {}
    2 |           1 |        500 |        2 |         3 |     100 |       0 |           0 |            0 |            0 | {}
-   3 |           1 |        500 |        3 |         2 |    1414 |    2104 |        2104 |            0 |            0 | {}
-   4 |           1 |        500 |        4 |         2 |    1515 |    4359 |        4359 |            0 |            0 | {}
-   5 |           1 |        500 |        5 |         4 |     200 |    5461 |        5461 |            0 |            0 | {}
-   6 |           1 |        500 |        6 |         6 |      -1 |    5461 |        5461 |            0 |            0 | {}
-(6 rows)
+   3 |           1 |        500 |        3 |         4 |     200 |    1299 |        1299 |            0 |            0 | {}
+   4 |           1 |        500 |        4 |         6 |      -1 |    1299 |        1299 |            0 |            0 | {}
+(4 rows)
 
 </pre></div>
 </div>
@@ -271,19 +263,15 @@ FROM vrp_vroom(
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>Jobs SQL</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
-<td><p><a class="reference internal" href="#jobs-sql">Jobs SQL</a> query describing the places to visit.</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Shipments SQL</strong></p></td>
+<tr class="row-even"><td><p><strong>Shipments SQL</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
 <td><p><a class="reference internal" href="#shipments-sql">Shipments SQL</a> query describing pickup and delivery tasks.</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Vehicles SQL</strong></p></td>
+<tr class="row-odd"><td><p><strong>Vehicles SQL</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
 <td><p><a class="reference internal" href="#vehicles-sql">Vehicles SQL</a> query describing the available vehicles.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Matrix SQL</strong></p></td>
+<tr class="row-even"><td><p><strong>Matrix SQL</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
 <td><p><a class="reference internal" href="#time-matrix-sql">Time Matrix SQL</a> query containing the distance or
 travel times between the locations.</p></td>
